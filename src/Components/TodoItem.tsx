@@ -16,7 +16,7 @@ const TodoItem = ({todo,deleteHandler,completeHandler} : PropsType) => {
 
         <Button onClick={()=> deleteHandler(todo.id)}>Delete</Button>
         <Button >Edit</Button>
-    <div> {todo.id} </div>
+    {/* <div> {todo.id} </div> */}
       </Stack>
     </Paper>
   )

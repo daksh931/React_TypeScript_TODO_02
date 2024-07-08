@@ -18,6 +18,16 @@ const App = () => {
   const deleteHandler = (id: TodoItemType["id"]):void => { 
     alert(id);
   }
+
+  const submitHandler = () :void=> {
+    const newTodo : TodoItemType = {
+      title,
+      isCompleted:false,
+      id: Number(Math.round(Math.random()*100000)),
+    };
+
+    setTodos((prev)=> [...prev,newTodo]);
+  };
   return (
    <div>
       <Container maxWidth="sm" >
@@ -36,8 +46,17 @@ const App = () => {
         ))
       }
       </Stack>
-      <TextField value={title} onChange={(e)=> setTitle(e.target.value)} fullWidth label={"New Task"}/>
-      <Button sx={{margin: "1rem 0"}} onSubmit={submitHandler} >ADD</Button>
+      <TextField value={title} onChange={(e)=> setTitle(e.target.value)} fullWidth 
+        label={"New Task"} 
+        onKeyDown={(e)=> {
+          if (e.key === "Enter") submitHandler();
+              }
+                } />
+      <Button sx={{margin: "1rem 0" }} 
+       fullWidth
+        variant='contained' 
+        onClick={submitHandler} 
+        disabled={title===""}>  ADD</Button>
         </Container>
    </div>
   )
