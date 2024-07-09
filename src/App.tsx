@@ -8,17 +8,30 @@ const App = () => {
   const [title,setTitle] = useState<TodoItemType["title"]>("");
 
   const completeHandler = (id: TodoItemType["id"]) : void => {
-    alert(id);
+    // alert(id);
+    console.log(todos)
     const newTodos : TodoItemType[]= todos.map((i)=> {
-      if(i.id === id) i.isCompleted = ! i.isCompleted;
+      if(i.id === id) i.isCompleted = !i.isCompleted;
       return i;
     });
+    setTodos(newTodos);
   }
 
   const deleteHandler = (id: TodoItemType["id"]):void => { 
-    alert(id);
-  }
+    const newTodos:TodoItemType[] = todos.filter(i=> i.id !== id)
+    // alert(id);
+    setTodos(newTodos);
+    }
 
+  const editHandler = (id: TodoItemType["id"], title:TodoItemType["title"]) : void => {
+    // alert(id);
+    console.log(todos)
+    const newTodos : TodoItemType[]= todos.map((i)=> {
+      if(i.id === id) i.title = title;
+      return i;
+    });
+    setTodos(newTodos);
+  }
   const submitHandler = () :void=> {
     const newTodo : TodoItemType = {
       title,
@@ -40,7 +53,9 @@ const App = () => {
 
         <Stack height={"80%"} direction={"column"} spacing={"1rem"} p={"1rem"}>
         {todos.map((i) => (
-          <TodoItem deleteHandler={deleteHandler} completeHandler={completeHandler}
+          <TodoItem deleteHandler={deleteHandler} 
+          completeHandler={completeHandler}
+          editHandler={editHandler}
           key={i.id}
           todo={i}/>
         ))
@@ -49,7 +64,7 @@ const App = () => {
       <TextField value={title} onChange={(e)=> setTitle(e.target.value)} fullWidth 
         label={"New Task"} 
         onKeyDown={(e)=> {
-          if (e.key === "Enter") submitHandler();
+          if (e.key === "Enter" && title !== "") submitHandler();
               }
                 } />
       <Button sx={{margin: "1rem 0" }} 
