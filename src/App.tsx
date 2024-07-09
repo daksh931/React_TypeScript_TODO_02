@@ -1,7 +1,7 @@
 import { AppBar, Container, Toolbar, Typography, Stack, TextField, Button } from '@mui/material'
 import TodoItem from './Components/TodoItem'
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import {saveTodosLocal } from './utils/features'
 const App = () => {
 
   const [todos,setTodos] = useState<TodoItemType[]>([]);
@@ -40,7 +40,14 @@ const App = () => {
     };
 
     setTodos((prev)=> [...prev,newTodo]);
+    setTitle("")
+    saveTodosLocal(todos)
   };
+
+  useEffect(() => {
+    saveTodosLocal(todos)
+  }, [todos])
+  
   return (
    <div>
       <Container maxWidth="sm" >

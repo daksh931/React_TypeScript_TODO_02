@@ -18,10 +18,10 @@ const TodoItem = ({todo,deleteHandler,completeHandler,editHandler} : PropsType) 
     <Paper sx={{padding : '1rem'}}>
 
       <Stack direction={"row"} alignItems={"center"}>
-        {editActive ? (<TextField value={textVal} 
+        {editActive ? (<TextField sx={{marginRight:"auto"}} value={textVal} 
           onChange={(e)=> setTextVal(e.target.value)}
           onKeyDown={(e) => { 
-              if(e.key === "Enter") {
+              if(e.key === "Enter" && textVal!=="") {
                 editHandler(todo.id,textVal),
                 setEditActive(!editActive)
                   }                
@@ -33,7 +33,7 @@ const TodoItem = ({todo,deleteHandler,completeHandler,editHandler} : PropsType) 
         <Checkbox checked={todo.isCompleted} onChange={()=>completeHandler(todo.id)}/>
 
         <Button onClick={()=> deleteHandler(todo.id)}>Delete</Button>
-        <Button onClick={()=> setEditActive((prev)=>!prev)}>Edit</Button>
+        <Button onClick={()=> setEditActive((prev)=>!prev)}> {editActive?"DONE":"EDIT"} </Button>
     {/* <div> {todo.id} </div> */}
       </Stack>
     </Paper>
