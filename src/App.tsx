@@ -1,10 +1,10 @@
 import { AppBar, Container, Toolbar, Typography, Stack, TextField, Button } from '@mui/material'
 import TodoItem from './Components/TodoItem'
 import { useEffect, useState } from 'react'
-import {saveTodosLocal } from './utils/features'
+import {getTodos, saveTodosLocal } from './utils/features'
 const App = () => {
 
-  const [todos,setTodos] = useState<TodoItemType[]>([]);
+  const [todos,setTodos] = useState<TodoItemType[]>(getTodos());
   const [title,setTitle] = useState<TodoItemType["title"]>("");
 
   const completeHandler = (id: TodoItemType["id"]) : void => {
